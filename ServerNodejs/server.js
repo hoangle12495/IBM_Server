@@ -77,4 +77,4 @@ setInterval(function(){
   io.emit('UPDATE', db[db.length-1]); 
 }, updateInterval);
 
-server.listen(8000);
+server.listen(process.env.PORT || 8000);

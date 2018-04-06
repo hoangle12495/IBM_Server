@@ -2,6 +2,8 @@
 <html>
 
 <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <meta charset="UTF-8">
       <title>SERVER</title>
       <!-- Nhúng file Javasript tại đường dẫn src để có thể xây dựng 1 graph -->
@@ -116,6 +118,10 @@
             text-align: center;
             margin-top: 5px;
       }
+      .fa
+      {
+            color: rgb(250, 193, 4);
+      }
 </style>
 
 <body>
@@ -125,17 +131,17 @@
             </div>
             <div style="display: none"> ESP8266 Button Status
                   <input type="checkbox" id="btn" name="btn" /> </div>
-            <h2 class="overview">PLC SmartHome</h1>
+            <h2 class="overview"><i class="fa fa-home" style="font-size:36px;color:rgba(36, 35, 35, 0.479)"></i>PLC SmartHome</h1>
                   <div class='info'>
                         <div class='temp'>
-                              <h3>
-                                    <i class="fas fa-thermometer-empty"></i> Temprature</h3>
+                              
+                              <h3> <i class="fa fa-thermometer-half" style="font-size:30px;color:rgb(19, 13, 13)"></i>Temprature</h3>                            
                               <p id="temp">
                                     <strong>&#176; C</strong>
                               </p>
                         </div>
                         <div class='humd'>
-                              <h3>Humidity</h3>
+                              <h3><i class="fa fa-tint" style="font-size:30px;color:rgb(17, 17, 17)"></i>Humidity</h3>
                               <p id="humd">
                                     <strong>%</strong>
                               </p>
@@ -144,24 +150,27 @@
                   </div>
 
                   <center>
-                        <h3>Control</h3>
+                        <h3><i class="fa fa-wrench" style="font-size:30px;color:rgb(8, 8, 8)"></i>Control</h3>
                   </center>
                   <center>
                         <div class="led1">
                               <p>Device1</p>
+                              <i class="fa fa-lightbulb-o" style="font-size:43px"></i>
                               <label class="switch">
                                     <input type="checkbox" id="led" name="led" disabled="true">
                                     <span class="slider round"></span>
                               </label>
-                              <span>&#9965</span>
+                              
                         </div>
                         <div class="led2">
                               <p>Device2</p>
+                              <i class="fa fa-lightbulb-o" style="font-size:43px"></i>
                               <label class="switch">
                                     <input type="checkbox" id="led2" name="led2" disabled="true">
+                                    
                                     <span class="slider round"></span>
                               </label>
-                              <span>&#9965;</span>
+                              
                         </div>
                         <div style="clear: both;"></div>
                   </center>
@@ -170,7 +179,7 @@
       </div>
 
       <script>
-            var socket = io.connect('http://localhost:8000');
+            var socket = io.connect('https://hoangle1420043.mybluemix.net/');
 
             var dataTemp = [];
             var dataHumd = [];
@@ -261,7 +270,7 @@
             var button = document.getElementById('btn');
             var led = document.getElementById('led');
             var led2 = document.getElementById('led2');
-
+           
             document.getElementById('status').innerHTML = 'Connected';
             led.disabled = false;
             led2.disabled = false;
@@ -274,8 +283,10 @@
             }
             led2.onchange = function () {
                   var led2_status = 'LED2_OFF';
+                  
                   if (led2.checked) {
                         led2_status = 'LED2_ON';
+                        
                   }
                   socket.emit('BTN_CHANGE_CLIENT', led2_status)
             }
