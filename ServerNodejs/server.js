@@ -26,11 +26,16 @@ app.get('/', function (req, res,next) {
   if(!logined) {
     res.redirect('/login')
   } else {
-    res.render('index')
+    res.render('index');
+    logined = false;
   }
 });
 app.get('/login',function(req,res) {
   res.render('login')
+})
+app.get('/esp8266',function(req,res){
+  logined = true;
+  res.redirect('/');
 })
 app.post('/login', function(req,res) {
   let loginData = req.body;
@@ -38,7 +43,7 @@ app.post('/login', function(req,res) {
     logined = true;
     res.redirect('/')
   } else {
-    res.status(400).json('Login failed')
+    res.redirect('/login');
   }
 })
 
